@@ -1,0 +1,60 @@
+
+OOAPC: An object-oriented interface to APC
+==========================================
+
+This class exposes an object-oriented interface to APC functions.
+The interface can also serve as a drop-in replacement for the Memcache class,
+except connection-related methods which is unnecessary in the case of APC.
+
+Code Example:
+    
+    $apc = new OOAPC;
+    $apc->set($key, $value, $ttl);  // $value will be automatically serialized.
+    echo $apc->get($key);
+
+Methods Reference:
+    
+    is_enabled()
+        Returns true if APC is enabled, and false otherwise.
+    
+    get($key)
+        Returns the cached value, or false if the key is not found.
+        
+    set($key, $value, [$ttl = 0], [$ttl = 0])
+        Stores the value under the key, whether or not the key exists.
+        Returns true on success and false on failure.
+        
+    add($key, $value, [$ttl = 0], [$ttl = 0])
+        Stores the value under the key, only if the key does not already exist.
+        Returns true on success and false on failure.
+        
+    replace($key, $value, [$ttl = 0], [$ttl = 0])
+        Stores the value under the key, only if the key already exists.
+        Returns true on success and false on failure.
+        
+    delete($key)
+        Deletes the key. Returns true on success and false on failure.
+        
+    increment($key, [$diff = 1])
+        Increments an integer stored under the key.
+        If the key is not found or the value is not an integer, this will fail.
+        Returns the new value, or false on failure.
+    
+    decrement($key, [$diff = 1])
+        Decrements an integer stored under the key.
+        If the key is not found or the value is not an integer, this will fail.
+        Returns the new value, or false on failure.
+        
+    flush()
+        Deletes all keys from the APC user cache.
+    
+Known Issues:
+
+    Depending on the APC version, set() and replace() may occasionally fail,
+    especially when they are called repeatedly on the same key.
+    
+    For more information, please see http://pecl.php.net/bugs/bug.php?id=16814
+    
+License:
+    
+    OOAPC is free software. It is released under the MIT License.
