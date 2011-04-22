@@ -4,13 +4,15 @@ OOAPC: An object-oriented interface to APC
 
 This class exposes an object-oriented interface to APC functions.
 The interface can also serve as a drop-in replacement for the Memcache class,
-except connection-related methods which is unnecessary in the case of APC.
+except connection-related methods which are unnecessary in the case of APC.
+
 
 Code Example:
     
     $apc = new OOAPC;
     $apc->set($key, $value, $ttl);  // $value will be automatically serialized.
     echo $apc->get($key);
+
 
 Methods Reference:
     
@@ -48,13 +50,20 @@ Methods Reference:
     flush()
         Deletes all keys from the APC user cache.
     
+    For compatibility with Memcache, the TTL can be specified using either
+    the third or the fourth argument of set(), add(), and replace() methods.
+    If the fourth argument is set, it will override the third argument.
+    
+    
 Known Issues:
 
     Depending on the APC version, set() and replace() may occasionally fail,
     especially when they are called repeatedly on the same key.
     
     For more information, please see http://pecl.php.net/bugs/bug.php?id=16814
-    
+
+
 License:
     
-    OOAPC is free software. It is released under the MIT License.
+    OOAPC is free software, released under the MIT License.
+
