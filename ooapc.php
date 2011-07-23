@@ -41,19 +41,19 @@ class OOAPC
     
     public function set($key, $value, $ttl = 0, $ttl_compat = 0)
     {
-        if ($ttl != $ttl_compat) $ttl = $ttl_compat;
+        if ($ttl_compat != 0 && $ttl != $ttl_compat) $ttl = $ttl_compat;
         return apc_store($key, serialize($value), $ttl);
     }
     
     public function add($key, $value, $ttl = 0, $ttl_compat = 0)
     {
-        if ($ttl != $ttl_compat) $ttl = $ttl_compat;
+        if ($ttl_compat != 0 && $ttl != $ttl_compat) $ttl = $ttl_compat;
         return apc_add($key, serialize($value), $ttl);
     }
     
     public function replace($key, $value, $ttl = 0, $ttl_compat = 0)
     {
-        if ($ttl != $ttl_compat) $ttl = $ttl_compat;
+        if ($ttl_compat != 0 && $ttl != $ttl_compat) $ttl = $ttl_compat;
         if (function_exists('apc_exists'))
         {
             if (!apc_exists($key)) return false;
