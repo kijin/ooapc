@@ -1,0 +1,23 @@
+{
+    "name": "kijin/ooapc",
+    "description": "An object-oriented interface to APC, drop-in replacement for Memcache class",
+    "type": "library",
+    "keywords": ["apc", "memcache"],
+    "homepage": "https://github.com/kijin/ooapc",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kijin Sung",
+            "email": "kijin@kijinsung.com",
+            "homepage": "http://www.kijinsung.com/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.0.0",
+        "ext-apc": ">=3.1.1"
+    },
+    "autoload": {
+        "files": ["ooapc.php"]
+    }
+}
