@@ -4,9 +4,9 @@
  * OOAPC: An object-oriented interface to APC
  * 
  * URL: http://github.com/kijin/ooapc
- * Version: 0.1
+ * Version: 0.1.1
  * 
- * Copyright (c) 2011, Kijin Sung <kijin.sung@gmail.com>
+ * Copyright (c) 2011-2013, Kijin Sung <kijin@kijinsung.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,15 +29,21 @@
 
 class OOAPC
 {
+    // Returns true if APC is enabled, false otherwise.
+    
     public function is_enabled()
     {
         return (bool)ini_get('apc.enabled');
     }
     
+    // Returns a stored value. Returns false if key does not exist.
+    
     public function get($key)
     {
         return unserialize(apc_fetch($key));
     }
+    
+    // Stores a value under a key.
     
     public function set($key, $value, $ttl = 0, $ttl_compat = 0)
     {
@@ -45,11 +51,15 @@ class OOAPC
         return apc_store($key, serialize($value), $ttl);
     }
     
+    // Stores a value under a key, only if the key does not already exist.
+    
     public function add($key, $value, $ttl = 0, $ttl_compat = 0)
     {
         if ($ttl_compat != 0 && $ttl != $ttl_compat) $ttl = $ttl_compat;
         return apc_add($key, serialize($value), $ttl);
     }
+    
+    // Stores a value under a key, only if the key already exists.
     
     public function replace($key, $value, $ttl = 0, $ttl_compat = 0)
     {
@@ -62,23 +72,31 @@ class OOAPC
         {
             if (apc_fetch($key) === false) return false;
         }
-        return apc_store($key, serialize($value), $ttl);  // Haha, this ain't atomic!
+        return apc_store($key, serialize($value), $ttl);  // NOT ATOMIC
     }
+    
+    // Deletes a key.
     
     public function delete($key)
     {
         return apc_delete($key);
     }
     
+    // Increments a numerical value.
+    
     public function increment($key, $diff = 1)
     {
         return apc_inc($key, $diff);
     }
     
+    // Decrements a numerical value.
+    
     public function decrement($key, $diff = 1)
     {
         return apc_dec($key, $diff);
     }
+    
+    // Deletes all keys.
     
     public function flush()
     {
