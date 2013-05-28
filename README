@@ -57,7 +57,12 @@ Methods Reference:
     
 Known Issues:
 
-    Depending on the APC version, set() and replace() may occasionally fail,
+    replace() is not an atomic operation, because APC does not provide
+    the equivalent of Memcache's replace() method. It is therefore possible
+    for a key to be deleted after it is checked for existence
+    but before the new value is stored.
+    
+    In APC versions 3.1.8 and below, set() and replace() may occasionally fail,
     especially when they are called repeatedly on the same key.
     
     For more information, please see http://pecl.php.net/bugs/bug.php?id=16814
